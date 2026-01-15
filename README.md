@@ -2,7 +2,7 @@
 
 Scaffold leve para Landing Pages com Painel Administrativo (PHP + SQLite).
 
-![Preview do Frontend](assets/preview.png)
+![Preview do Frontend](assets/preview.png?v=1)
 
 ## 🚀 Quick Start
 
