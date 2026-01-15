@@ -1,39 +1,147 @@
 <!doctype html>
-<html ng-app="landpageApp">
+<html lang="pt-BR" ng-app="landpageApp">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>LandPage</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 </head>
-<body class="bg-light">
-  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-    <div class="container">
-      <a class="navbar-brand" href="#">LandPage</a>
-      <div>
-        <a class="btn btn-primary" href="/frontend/admin/login.html">Acessar Painel</a>
+<body ng-controller="MainCtrl">
+
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <!-- LOGO: Salve seu arquivo na pasta assets e coloque o nome aqui (ex: logo.png) -->
+      <img src="/assets/logo.png" alt="Logo InfoWell-dast">
+      <span>InfoWell-dast</span>
+    </div>
+    <nav>
+      <a href="#sobre" class="nav-link">Sobre</a>
+      <a href="#trajetoria" class="nav-link">Trajetória</a>
+      <a href="#habilidades" class="nav-link">Habilidades</a>
+      <a href="#servicos" class="nav-link">Serviços</a>
+      <a href="#contato" class="nav-link">Contato</a>
+      <a href="/frontend/admin/login.html" class="btn-login">Login</a>
+    </nav>
+  </header>
+
+  <!-- Hero / Intro -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Soluções Digitais de Alta Performance</h1>
+      <h2>Wellerson Jesus | FullStack Developer</h2>
+      <p>
+        Transformo ideias em realidade com código limpo e eficiente. Especialista em desenvolvimento web, microserviços e arquitetura de software.
+        Comprometido com a inovação e resultados objetivos para o seu negócio.
+      </p>
+      <div class="cta-buttons">
+        <a href="#contato" class="btn-login">Entrar em Contato</a>
+        <a href="#servicos" class="btn-login" style="background-color:transparent; border: 2px solid var(--color1); color: var(--color1)">Ver Serviços</a>
       </div>
     </div>
-  </nav>
+    <div class="hero-image">
+      <!-- FOTO PRINCIPAL: Salve seu arquivo na pasta assets e coloque o nome aqui (ex: minha-foto.png) -->
+      <img src="/assets/logo.02.jpg" alt="Foto de Perfil Wellerson">
+    </div>
+  </section>
 
-  <main class="container py-5" ng-controller="MainCtrl">
-    <div class="row">
-      <div class="col-md-8">
-        <h1>Serviços</h1>
-        <div class="list-group">
-          <a class="list-group-item list-group-item-action" ng-repeat="s in services">
-            <h5 class="mb-1">{{s.title}}</h5>
-            <p class="mb-1">{{s.description}}</p>
-          </a>
+  <!-- Contact Bar -->
+  <div class="contact-bar" id="contato">
+    <span>📧 wellersonjesus@hotmail.com</span>
+    <span>📱 55 (31) 9 993327287</span>
+    <span>🎨 <a href="https://www.behance.net/wellersonjesusjobs" target="_blank" style="color: inherit;">Portfólio</a></span>
+    <span>📺 <a href="https://www.youtube.com/watch?v=YfEGgtL2HS4" target="_blank" style="color: inherit;">Startup Infowell-dast Liberdade & tecnologia |Freella</a></span>
+  </div>
+
+  <!-- Resumo Profissional -->
+  <section id="sobre">
+    <h2 class="section-title">Sobre Mim</h2>
+    <div class="about-container">
+      <div class="summary-grid">
+        <div class="summary-card">
+          <h3>Experiência</h3>
+          <p>Desenvolvedor Full Stack com 03 anos de experiência em soluções web e mobile. Tenho conhecimento em Java, JavaScript, Node.js, React, Angular, Spring Boot e bancos de dados.</p>
+        </div>
+        <div class="summary-card">
+          <h3>Versatilidade</h3>
+          <p>Full Stack versátil com experiência em tecnologia. Atuo em todas as fases do desenvolvimento, da análise à implantação e manutenção. Experiência em cloud computing (AWS, Azure) e DevOps.</p>
+        </div>
+        <div class="summary-card">
+          <h3>Inovação</h3>
+          <p>Experiência em desenvolvimento de software, focado em soluções inovadoras e escaláveis. Tenho sucesso em projetos, de MVPs a sistemas complexos.</p>
         </div>
       </div>
-      <div class="col-md-4">
-        <h3>Contato</h3>
-        <p>Formulário de contato pode ser adicionado aqui.</p>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="timeline-section" id="trajetoria">
+    <h2 class="section-title">Trajetória</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <span class="timeline-year">2023 - Atualidade</span>
+        <p><strong>Desenvolvimento Full Stack:</strong> Projetos complexos utilizando Node.js, React e Spring Boot.</p>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-year">2021 - 2023</span>
+        <p>Implementação e suporte de códigos e projetos tecnológicos, com foco em microserviços.</p>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-year">2016 - 2020</span>
+        <p>Criação e desenvolvimento do projeto Marketing Liberdade Financeira (MLF).</p>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-year">2014 - 2020</span>
+        <p>Fundador de startup, atuando da criação até a manutenção.</p>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-year">2012 - 2014</span>
+        <p>Curso de Redes de Computadores (Pitagoras).</p>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-year">1998 - 2000</span>
+        <p>Formação Técnica e Científica (SENAI / Colégio Estadual Central).</p>
       </div>
     </div>
-  </main>
+  </section>
+
+  <!-- Habilidades e Idiomas -->
+  <section id="habilidades">
+    <h2 class="section-title">Habilidades & Idiomas</h2>
+    
+    <div class="skills-container">
+      <span class="skill-tag">Micro serviços</span>
+      <span class="skill-tag">RESTful API</span>
+      <span class="skill-tag">Javascript</span>
+      <span class="skill-tag">Liderança</span>
+      <span class="skill-tag">Resolução de problemas</span>
+      <span class="skill-tag">Frameworks (React, Angular)</span>
+      <span class="skill-tag">Node.js</span>
+      <span class="skill-tag">Java / Spring Boot</span>
+    </div>
+
+    <div class="languages-grid">
+      <div class="lang-card"><h4>Português</h4><p>Nativo</p></div>
+      <div class="lang-card"><h4>Inglês</h4><p>Básico</p></div>
+      <div class="lang-card"><h4>Espanhol</h4><p>Básico</p></div>
+    </div>
+  </section>
+
+  <!-- Serviços Dinâmicos (API) -->
+  <section class="services-section" id="servicos">
+    <h2 class="section-title">O que eu faço</h2>
+    <div class="services-grid">
+      <div class="service-card" ng-repeat="service in services">
+        <h3>{{ service.title }}</h3>
+        <p>{{ service.description }}</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2024 Wellerson Jesus | Development | SRE | Software Architect</p>
+  </footer>
 
   <script>
 angular.module('landpageApp', [])
