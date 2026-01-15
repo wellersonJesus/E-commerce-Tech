@@ -84,20 +84,10 @@ curl -c cookies.txt -H "Content-Type: application/json" -d '{"email":"admin@admi
 # chamar endpoint protegido usando o cookie salvo
 curl -b cookies.txt http://localhost:8000/backend/api/dashboard/metrics.php
 ```
-
 ---
 
-Se quiser que eu inicialize um repositório Git local, crie um repositório no GitHub e faça o push automático daqui, diga-me e eu realizo os passos necessários (preciso de sua confirmação para criar o repo remoto ou das credenciais/token se preferir que eu faça isso). 
+<div align="center">
+© JesusWellerson | Development | SRE | Software Architect | Software Engineer
+<br>
+</div>
 
-**Configuração de ambiente**
-
-- **Criar `.env`**: copie o arquivo de exemplo e preencha os valores sensíveis localmente (não commite `.env`):
-
-```bash
-cp .env.example .env
-# então edite .env e preencha senhas e chaves
-```
-
-- **Chaves e senhas**: use valores fortes para `JWT_SECRET`, `ADMIN_PASSWORD` e outras credenciais. Nunca comite valores reais no repositório.
-
-- **Banco de dados SQLite**: o padrão usa `backend/database/landpage.sqlite`. Se desejar caminhos absolutos, ajuste as variáveis correspondentes em `.env`.
