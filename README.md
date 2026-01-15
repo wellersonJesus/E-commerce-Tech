@@ -19,7 +19,10 @@ Pequeno scaffold com uma landing pública e painel administrativo que usa PHP + 
 
 ```bash
 cp .env.example .env
-# Edite .env para definir ADMIN_PASSWORD, JWT_SECRET e credenciais
+# Edite .env para definir 
+ADMIN_EMAIL=change@change.com
+ADMIN_PASSWORD=change_this_password
+JWT_SECRET=change_this_secret
 ```
 
 2. Criar banco SQLite e aplicar schema + seeds (via PHP se `sqlite3` não estiver instalado):
