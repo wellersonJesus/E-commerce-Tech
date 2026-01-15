@@ -1,0 +1,48 @@
+<!doctype html>
+<html ng-app="landpageApp">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>LandPage</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body class="bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <div class="container">
+      <a class="navbar-brand" href="#">LandPage</a>
+      <div>
+        <a class="btn btn-primary" href="/frontend/admin/login.html">Acessar Painel</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-5" ng-controller="MainCtrl">
+    <div class="row">
+      <div class="col-md-8">
+        <h1>Serviços</h1>
+        <div class="list-group">
+          <a class="list-group-item list-group-item-action" ng-repeat="s in services">
+            <h5 class="mb-1">{{s.title}}</h5>
+            <p class="mb-1">{{s.description}}</p>
+          </a>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <h3>Contato</h3>
+        <p>Formulário de contato pode ser adicionado aqui.</p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+angular.module('landpageApp', [])
+.controller('MainCtrl', function($scope, $http){
+  $scope.services = [];
+  $http.get('/backend/api/services/services.php?public=1').then(function(resp){
+    $scope.services = resp.data.services || [];
+  });
+});
+  </script>
+</body>
+</html>

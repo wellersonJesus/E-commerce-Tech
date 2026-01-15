@@ -1,0 +1,16 @@
+# Arquivos de Ambiente (Senhas e Chaves)
+.env
+
+# Banco de Dados SQLite (Não deve ser versionado)
+*.sqlite
+*.sqlite3
+backend/database/*.sqlite
+
+# Arquivos de Sistema e IDEs
+.DS_Store
+.vscode/
+.idea/
+
+# Dependências (caso adicione Composer ou NPM no futuro)
+/vendor/
+/node_modules/
