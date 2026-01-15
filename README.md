@@ -9,7 +9,7 @@ Pequeno scaffold com uma landing pública e painel administrativo que usa PHP + 
 
 **Arquivos importantes**
 
-- Especificação API: [docs/swagger.yaml](docs/swagger.yaml)
+- Especificação API: [backend/docs/swagger.yaml](backend/docs/swagger.yaml)
 - Landing pública: [frontend/public/index.html](frontend/public/index.html)
 - Painel admin: [frontend/admin/login.html](frontend/admin/login.html) e [frontend/admin/dashboard.html](frontend/admin/dashboard.html)
 
@@ -19,7 +19,7 @@ Pequeno scaffold com uma landing pública e painel administrativo que usa PHP + 
 
 ```bash
 cp .env.example .env
-# então edite .env e defina ADMIN_EMAIL, ADMIN_PASSWORD, JWT_SECRET e credenciais do banco
+# Edite .env para definir ADMIN_PASSWORD, JWT_SECRET e credenciais
 ```
 
 2. Criar banco SQLite e aplicar schema + seeds (via PHP se `sqlite3` não estiver instalado):
@@ -65,7 +65,7 @@ Se estiver rodando na raiz do repositório, há um `index.html` que redireciona 
 
 ## Documentação OpenAPI
 
-O arquivo `[docs/swagger.yaml](docs/swagger.yaml)` descreve os endpoints disponíveis. Abra [docs/index.html](docs/index.html) no navegador para uma UI ReDoc.
+O arquivo `backend/docs/swagger.yaml` descreve os endpoints disponíveis. Abra backend/docs/index.html no navegador para uma UI ReDoc.
 
 ## Testes rápidos
 

@@ -1,5 +1,0 @@
-RewriteEngine On
-
-# Redirect all requests to front controllers if needed (for pretty URLs)
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^ api/index.php [QSA,L]
