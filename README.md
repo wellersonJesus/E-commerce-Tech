@@ -1,8 +1,17 @@
 # E-commerce Tech
 
-Plataforma de Venda de Serviços Tecnológicos com Painel Administrativo (PHP + SQLite).
+Plataforma Fullstack para venda de serviços tecnológicos, integrando uma Landing Page pública e um Dashboard Administrativo com autenticação e métricas. Desenvolvido com PHP nativo (API REST), SQLite e AngularJS.
 
-![Preview do Frontend](assets/preview.png?v=2)
+<div align="center">
+  <img src="assets/ecommerce.png" alt="Preview da Home" width="45%">
+  <img src="assets/ecommerce-serviços.png" alt="Preview do Serviços" width="45%">
+</div>
+<br>
+<div align="center">
+  <img src="assets/ecommerce-fale.png" alt="Preview Fale" width="30%">
+  <img src="assets/ecommerce-login.png" alt="Preview do Login" width="30%">
+  <img src="assets/ecommerce-docs.png" alt="Preview da Documentação" width="30%">
+</div>
 
 ## 🚀 Quick Start
 

@@ -115,9 +115,12 @@ header {
     height: auto;
     border-radius: 50%;
     aspect-ratio: 1 / 1;
-    object-fit: cover;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    border: 5px solid var(--color5);
+    object-fit: contain;
+    background-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    padding: 8px; /* Cria um efeito de moldura elegante */
+    backdrop-filter: blur(4px);
 }
 
 .hero h1 {
@@ -242,6 +245,7 @@ section {
     padding: 3rem;
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    border: 1px solid rgba(255, 255, 255, 0.6); /* Borda clean */
 }
 
 .form-group {
@@ -258,15 +262,16 @@ section {
 .form-control {
     width: 100%;
     padding: 1rem;
-    border: 2px solid white;
+    border: 1px solid #e0e0e0; /* Borda mais fina e suave */
     border-radius: 10px;
     font-size: 1rem;
     outline: none;
-    transition: border 0.3s;
+    transition: all 0.3s ease;
 }
 
 .form-control:focus {
     border-color: var(--color2);
+    box-shadow: 0 0 0 4px rgba(0, 180, 216, 0.15); /* Efeito de brilho elegante */
 }
 
 /* WhatsApp Float */
