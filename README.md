@@ -2,7 +2,7 @@
 
 Plataforma de Venda de Serviços Tecnológicos com Painel Administrativo (PHP + SQLite).
 
-![Preview do Frontend](assets/preview.png?v=1)
+![Preview do Frontend](assets/preview.png?v=2)
 
 ## 🚀 Quick Start
 
