@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Cliente</title>
+    <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; text-align: center; background: var(--color4);">
+        <h1>Bem-vindo ao seu Painel de Cliente!</h1>
+        <p>Esta é a sua área exclusiva para gerenciar serviços e chamados.</p>
+        <p style="margin-top: 2rem;"><a href="#" id="logout-link" class="btn-login" style="background-color: var(--color2);">Sair</a></p>
+    </div>
+    <script>
+        // Funcionalidade básica de logout
+        document.getElementById('logout-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            fetch('/backend/api/auth/logout.php')
+                .then(() => window.location.href = '/frontend/public/index.html');
+        });
+    </script>
+</body>
+</html>

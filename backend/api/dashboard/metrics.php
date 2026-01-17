@@ -1,16 +1,30 @@
 <?php
+// backend/api/dashboard/metrics.php
 header('Content-Type: application/json');
-require_once __DIR__ . '/../config/database.php';
 session_start();
+require_once __DIR__ . '/../config/database.php';
 
-if (empty($_SESSION['user'])) {
-    http_response_code(403);
-    echo json_encode(['error' => 'Forbidden']);
+// Verifica autenticação
+if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
+    http_response_code(403); // Forbidden
+    echo json_encode(['error' => 'Acesso negado. Somente administradores.']);
     exit;
 }
 
-$db = get_db();
-$u = $db->query('SELECT COUNT(*) as c FROM users')->fetch(PDO::FETCH_ASSOC);
-$s = $db->query('SELECT COUNT(*) as c FROM services')->fetch(PDO::FETCH_ASSOC);
+try {
+    // Total de Usuários
+    $stmt = $pdo->query("SELECT COUNT(*) as count FROM users");
+    $usersCount = $stmt->fetch()['count'];
 
-echo json_encode(['users' => (int)$u['c'], 'services' => (int)$s['c']]);
+    // Total de Serviços
+    $stmt = $pdo->query("SELECT COUNT(*) as count FROM services");
+    $servicesCount = $stmt->fetch()['count'];
+
+    echo json_encode([
+        'users' => $usersCount,
+        'services' => $servicesCount
+    ]);
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode(['error' => 'Erro ao carregar métricas']);
+}

@@ -1,67 +1,61 @@
 <?php
 // backend/scripts/init_db.php
+
+// Carrega variáveis de ambiente para pegar a senha do admin
 require_once __DIR__ . '/../api/config/env.php';
-require_once __DIR__ . '/../api/config/database.php';
 
-echo "Initializing SQLite database..." . PHP_EOL;
+// Caminho do banco de dados SQLite
+$dbPath = __DIR__ . '/../database/database.sqlite';
+
+echo "Inicializando banco de dados em: $dbPath\n";
 
 try {
-    $db = get_db();
-} catch (Exception $e) {
-    echo "Failed to get DB: " . $e->getMessage() . PHP_EOL;
-    exit(1);
-}
+    // Conecta ao SQLite
+    $pdo = new PDO('sqlite:' . $dbPath);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-$schemaFile = __DIR__ . '/../database/schema.sql';
-$seedsFile = __DIR__ . '/../database/seeds.sql';
+    // 1. Executar Schema (Isso vai rodar os DROP TABLE e CREATE TABLE)
+    echo "Executando schema.sql (Recriando tabelas)...\n";
+    $schema = file_get_contents(__DIR__ . '/../database/schema.sql');
+    $pdo->exec($schema);
 
-if (!file_exists($schemaFile)) {
-    echo "Schema file not found: {$schemaFile}" . PHP_EOL;
-    exit(1);
-}
+    // 2. Executar Seeds (Insere os dados novos)
+    echo "Executando seeds.sql (Inserindo dados de exemplo)...\n";
+    $seeds = file_get_contents(__DIR__ . '/../database/seeds.sql');
+    $pdo->exec($seeds);
 
-$schema = file_get_contents($schemaFile);
-try {
-    $db->exec($schema);
-    echo "Schema applied." . PHP_EOL;
+    // 3. Garantir que o Admin existe (baseado no .env)
+    $adminEmail = getenv('ADMIN_EMAIL') ?: 'admin@example.com';
+    
+    $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
+    $stmt->execute([$adminEmail]);
+    
+    if (!$stmt->fetch()) {
+        echo "Criando usuário Admin padrão...\n";
+        $adminName = getenv('ADMIN_NAME') ?: 'Admin';
+        $adminPass = getenv('ADMIN_PASSWORD') ?: 'admin123';
+        $hashedAdminPass = password_hash($adminPass, PASSWORD_DEFAULT);
+        
+        $stmt = $pdo->prepare("INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, 'admin')");
+        $stmt->execute([$adminName, $adminEmail, $hashedAdminPass]);
+    }
+
+    // 4. Garantir que o usuário de exemplo existe
+    $userEmail = 'user@example.com';
+    $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
+    $stmt->execute([$userEmail]);
+
+    if (!$stmt->fetch()) {
+        echo "Criando usuário de exemplo (user@example.com)...\n";
+        $userPass = '123456';
+        $hashedUserPass = password_hash($userPass, PASSWORD_DEFAULT);
+        $stmt = $pdo->prepare("INSERT INTO users (name, email, password, role) VALUES ('User', ?, ?, 'user')");
+        $stmt->execute([$userEmail, $hashedUserPass]);
+    }
+
+
+    echo "Sucesso! O banco de dados foi resetado.\n";
+
 } catch (PDOException $e) {
-    echo "Schema error: " . $e->getMessage() . PHP_EOL;
+    die("Erro ao manipular banco de dados: " . $e->getMessage() . "\n");
 }
-
-if (file_exists($seedsFile)) {
-    $seeds = file_get_contents($seedsFile);
-    try {
-        $db->exec($seeds);
-        echo "Seeds applied." . PHP_EOL;
-    } catch (PDOException $e) {
-        echo "Seeds error: " . $e->getMessage() . PHP_EOL;
-    }
-} else {
-    echo "Seeds file not found: {$seedsFile}" . PHP_EOL;
-}
-
-// Create Admin User from .env
-$adminEmail = getenv('ADMIN_EMAIL') ?: 'admin@admin.com';
-$adminPass = getenv('ADMIN_PASSWORD');
-
-if ($adminPass) {
-    echo "Creating/Updating admin user from .env..." . PHP_EOL;
-    $hash = password_hash($adminPass, PASSWORD_DEFAULT);
-    
-    // Check if exists to update or insert
-    $stmt = $db->prepare("SELECT id FROM users WHERE email = :email");
-    $stmt->execute([':email' => $adminEmail]);
-    
-    if ($stmt->fetch()) {
-        $update = $db->prepare("UPDATE users SET password = :pw, role = 'admin' WHERE email = :email");
-        $update->execute([':pw' => $hash, ':email' => $adminEmail]);
-    } else {
-        $insert = $db->prepare("INSERT INTO users (name, email, password, role) VALUES ('Admin', :email, :pw, 'admin')");
-        $insert->execute([':email' => $adminEmail, ':pw' => $hash]);
-    }
-    echo "Admin user processed." . PHP_EOL;
-} else {
-    echo "WARNING: ADMIN_PASSWORD not found in environment. Admin user skipped." . PHP_EOL;
-}
-
-echo "Database init finished." . PHP_EOL;

@@ -1,4 +1,10 @@
 -- SQLite schema for LandPage (moved to backend)
+PRAGMA foreign_keys = OFF;
+
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS services;
+DROP TABLE IF EXISTS contacts;
+
 PRAGMA foreign_keys = ON;
 
 CREATE TABLE IF NOT EXISTS users (

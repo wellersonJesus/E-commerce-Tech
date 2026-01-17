@@ -1,23 +1,25 @@
-# LandPage
+# E-commerce Tech
 
-Scaffold leve para Landing Pages com Painel Administrativo (PHP + SQLite).
+Plataforma de Venda de Serviços Tecnológicos com Painel Administrativo (PHP + SQLite).
 
 ![Preview do Frontend](assets/preview.png?v=1)
 
 ## 🚀 Quick Start
 
-1. **Configurar**
+1. **Configurar Ambiente**
    ```bash
    cp .env.example .env
-   # Edite o .env com suas credenciais
+   # Edite o arquivo .env com suas credenciais de Admin
    ```
 
-2. **Instalar**
+2. **Banco de Dados (Reset & Seeds)**
+   Para recriar o banco de dados, limpar tabelas antigas e inserir os dados de exemplo (Seeds):
    ```bash
    php backend/scripts/init_db.php
    ```
+   *Nota: Execute este comando sempre que quiser resetar o banco para o estado inicial definido em `seeds.sql`.*
 
-3. **Rodar**
+3. **Executar Servidor**
    ```bash
    php -S localhost:8000
    ```

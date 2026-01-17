@@ -1,58 +1,41 @@
 <?php
+// backend/api/auth/login.php
 header('Content-Type: application/json');
-require_once __DIR__ . '/../config/database.php';
+
 session_start();
+require_once __DIR__ . '/../config/database.php';
 
-$input = json_decode(file_get_contents('php://input'), true) ?: $_POST;
-$email = $input['email'] ?? null;
-$password = $input['password'] ?? null;
-
-if (!$email || !$password) {
-    http_response_code(400);
-    echo json_encode(['error' => 'Email and password required']);
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405); // Method Not Allowed
     exit;
 }
 
-$db = get_db();
-$stmt = $db->prepare('SELECT * FROM users WHERE email = :email LIMIT 1');
-$stmt->execute([':email' => $email]);
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
+$data = json_decode(file_get_contents('php://input'), true);
 
-if (!$user) {
-    http_response_code(401);
-    echo json_encode(['error' => 'Invalid credentials']);
+if (empty($data['email']) || empty($data['password'])) {
+    http_response_code(400); // Bad Request
+    echo json_encode(['error' => 'E-mail e senha são obrigatórios.']);
     exit;
 }
 
-$stored = $user['password'];
-$verified = false;
+// Busca o usuário pelo e-mail
+$stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
+$stmt->execute([$data['email']]);
+$user = $stmt->fetch();
 
-// If stored password looks like a password_hash output, verify with password_verify
-if (strpos($stored, '$2y$') === 0 || strpos($stored, '$argon2') === 0) {
-    $verified = password_verify($password, $stored);
+// Verificação segura de senha com password_verify
+if ($user && password_verify($data['password'], $user['password'])) {
+    // Armazena dados do usuário em um único array na sessão, como esperado por outros scripts
+    $_SESSION['user'] = [
+        'id' => $user['id'],
+        'name' => $user['name'],
+        'role' => $user['role']
+    ];
+
+    // Retorna sucesso e a role do usuário para o frontend decidir o redirecionamento
+    echo json_encode(['success' => true, 'role' => $user['role']]);
 } else {
-    // Fallback: plaintext comparison for initial seeds; if matches, re-hash
-    $verified = ($password === $stored);
-    if ($verified) {
-        $newHash = password_hash($password, PASSWORD_DEFAULT);
-        $u = $db->prepare('UPDATE users SET password = :pw WHERE id = :id');
-        $u->execute([':pw' => $newHash, ':id' => $user['id']]);
-        $user['password'] = $newHash;
-    }
+    // Credenciais inválidas
+    http_response_code(401); // Unauthorized
+    echo json_encode(['error' => 'E-mail ou senha inválidos.']);
 }
-
-if (!$verified) {
-    http_response_code(401);
-    echo json_encode(['error' => 'Invalid credentials']);
-    exit;
-}
-
-// Auth success: create session
-$_SESSION['user'] = [
-    'id' => $user['id'],
-    'name' => $user['name'],
-    'email' => $user['email'],
-    'role' => $user['role']
-];
-
-echo json_encode(['success' => true, 'user' => $_SESSION['user']]);

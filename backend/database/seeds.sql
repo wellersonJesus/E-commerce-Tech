@@ -1,9 +1,7 @@
 -- Seed data for LandPage (moved to backend)
 
 INSERT INTO services (title, description, active) VALUES
-('Desenvolvimento Web', 'Sites e aplicações responsivas', 1),
-('Sistemas PHP', 'Soluções backend em PHP', 1),
-('APIs REST', 'Desenvolvimento de APIs seguras', 1);
-
-INSERT INTO users (name, email, password, role) VALUES
-('User', 'user@example.com', '123456', 'user');
+('UX/UI Design & E-commerce', 'Interfaces modernas e lojas virtuais', 1),
+('Sistemas Web Full-Stack', 'Desenvolvimento de aplicações completas', 1),
+('Desenvolvimento Multiplataforma', 'Criação de aplicativos nativos para Android, iOS', 1),
+('Arquitetura de APIs & Backend', 'Construção de ecossistemas seguros e integração de serviços via APIs RESTful.', 1);
